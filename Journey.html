@@ -1,0 +1,75 @@
+<html>
+<head>
+<title> It's about the journey. </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",700,600);
+alert("If thy are truly faithful, thy shall go right, and never stop. Not even if thy feel thou art making no progress.")
+alert("Of course, for this version I have increased thy speed, so that you will not spend as much time playing as you normally would.")
+	var background = new sjs.Image("Images/Background.png");
+	background.setSize(50000, 600);
+	//Player Properties
+		var player = new sjs.Image("Images/Player_2_R.png");
+		player.type = "player";
+		player.setSize(85,85);
+		player.setGravity(2);
+		player.bottom();
+		player.friction = .3;
+		player.noBounds = true;
+		sjs.scrollable(player,background)
+		//Collison
+		sjs.onHit("player","bottom_screen",function(x,y){
+		sjs.stoppedBy(x,y);
+			if(canJump == false){
+			canJump = true;
+			r_track = 0;
+			l_track = 0;
+			}
+		});
+		sjs.onHit("player",["left_screen","top_screen"],function(x,y){
+		sjs.stoppedBy(x,y);
+		});//end collision
+		sjs.onHit("player","right_screen", function(x,y){
+			x.destroy();
+			window.location = "Win.html";
+		});//end win condition
+		//controls
+		sjs.keyDown(RIGHT_KEY, function(){
+			player.pushRight(20);
+			player.setImage("Images/Player_2_R.png");
+		/*sjs.keyDown(RIGHT_KEY, function(){
+			r_facing = true;
+			player.pushRight(1); */
+		});//end right
+		sjs.keyDown(LEFT_KEY, function(){
+			r_facing = false;
+			player.pushLeft(50);
+			player.setImage("Images/Player_2_L.png");
+		});//end left
+		//jumping code (please don't break)
+		var canJump = true;
+		sjs.keyDown(UP_KEY, function(){
+			
+			if(canJump == true){
+			canJump = false;
+			player.pushUp(30);
+			if(r_facing == true){
+				player.setImage("Images/r_jump.png");
+				r_track = 8;
+			} else {
+				player.setImage("Images/l_jump.png");
+				l_track = 8;
+			}
+			} //end if statement
+		});//end jumping
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> It's about the journey. </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
