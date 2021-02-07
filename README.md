@@ -1,2 +1,2 @@
 # My-Games
-EEEEEE This is a stupid class requirement
+EEEEEE The only reason this exists is because of class requirements
